@@ -37,43 +37,32 @@ participantesCarrera2 = [
 
 -- Dada una lista de conductores:
 -- Conocer los conductores que tienen moto
--- Saber si hay peligro, que es cuando hay algún peso pluma (que pesa menos de 1).
--- Conocer los vehículos de cada conductor
--- Saber si todos los que están corriendo la carrera son parte del universo de mario.
--- Conocer los conductores independientes: que son todos los que no son parte de ningún universo conocido.
-
-
-
-{-
--- Conocer los conductores que tienen moto
 conductoresConMoto :: [Conductor] -> [Conductor]
 conductoresConMoto conductores = filter tieneMoto conductores
 
 tieneMoto :: Conductor -> Bool
-tieneMoto = (Moto ==).vehiculo
+tieneMoto = (==Moto).vehiculo
 
 -- Saber si hay peligro, que es cuando hay algún peso pluma (que pesa menos de 1).
 hayPeligro :: [Conductor] -> Bool
-hayPeligro conductores = any pesoPluma conductores
+hayPeligro conductores = any esPesoPluma conductores
 
-pesoPluma :: Conductor -> Bool
-pesoPluma = (<1).peso
+esPesoPluma :: Conductor -> Bool
+esPesoPluma = (<1).peso
 
 -- Conocer los vehículos de cada conductor
 vehiculos :: [Conductor] -> [Vehiculo]
 vehiculos conductores = map vehiculo conductores
 
--- Saber si todos los que están corriendo la carrera son parte del universo de mario.
-todosSomosMario :: [Conductor] -> Bool
-todosSomosMario conductores = all (\ conductor -> elem (nombre conductor) universoMario) conductores
+-- Saber si todos los que están corriendo la carrera son parte 
+-- del universo de mario.
+todosSonDeMario :: [Conductor] -> Bool
+todosSonDeMario conductores = all esTeamMario conductores
 
--- Conocer los conductores independientes: que son todos los que no son parte de ningún universo conocido.
-independientes :: [Conductor] -> [Conductor]
-independientes conductores = filter esIndependiente conductores
+esTeamMario :: Conductor -> Bool
+esTeamMario conductor = elem (nombre conductor) universoMario
 
-esIndependiente :: Conductor -> Bool
-esIndependiente (UnConductor nombre _ _) = not (elem nombre universoMario) && not (elem nombre universoZelda)
-esIndependiente' conductor = not (elem (nombre conductor) (universoMario ++ universoZelda))
-esIndependiente'' = not.flip elem (universoMario ++ universoZelda).nombre
 
--}
+-- Conocer los conductores independientes: que son todos los que no 
+-- son parte de ningún universo conocido.
+-- queda de práctica
