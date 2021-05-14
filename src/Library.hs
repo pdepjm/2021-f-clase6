@@ -66,10 +66,14 @@ esTeamMario conductor = elem (nombre conductor) universoMario
 -- Conocer los conductores independientes: que son todos los que no 
 -- son parte de ningún universo conocido.
 conductoresIndependientes :: [Conductor] -> [Conductor]
-conductoresIndependientes = noSonUniverso universoMario . noSonUniverso universoZelda
+conductoresIndependientes = filter esTeamIndependiente
+-- conductoresIndependientes = noSonUniverso universoMario . noSonUniverso universoZelda
 
-noSonUniverso :: [String] -> [Conductor] -> [Conductor]
-noSonUniverso universo conductores = filter (not . esTeam universo) conductores
+-- noSonUniverso :: [String] -> [Conductor] -> [Conductor]
+-- noSonUniverso universo conductores = filter (not . esTeam universo) conductores
+
+esTeamIndependiente :: Conductor -> Bool
+esTeamIndependiente = not . esTeam (universoMario ++ universoZelda)
 
 esTeam :: [String] -> Conductor -> Bool
 esTeam universo conductor =  elem (nombre conductor) universo
