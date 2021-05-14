@@ -5,7 +5,7 @@ data Conductor = UnConductor {
   nombre :: String,
   peso :: Number,
   vehiculo :: Vehiculo
-} deriving Show
+} deriving (Show, Eq)
 
 data Vehiculo = Moto | Karting | Auto deriving (Show, Eq)
 
@@ -65,4 +65,15 @@ esTeamMario conductor = elem (nombre conductor) universoMario
 
 -- Conocer los conductores independientes: que son todos los que no 
 -- son parte de ningún universo conocido.
--- queda de práctica
+conductoresIndependientes :: [Conductor] -> [Conductor]
+conductoresIndependientes = filter esTeamIndependiente
+-- conductoresIndependientes = noSonUniverso universoMario . noSonUniverso universoZelda
+
+-- noSonUniverso :: [String] -> [Conductor] -> [Conductor]
+-- noSonUniverso universo conductores = filter (not . esTeam universo) conductores
+
+esTeamIndependiente :: Conductor -> Bool
+esTeamIndependiente = not . esTeam (universoMario ++ universoZelda)
+
+esTeam :: [String] -> Conductor -> Bool
+esTeam universo conductor =  elem (nombre conductor) universo

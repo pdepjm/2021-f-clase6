@@ -5,7 +5,10 @@ import Test.Hspec
 
 correrTests :: IO ()
 correrTests = hspec $ do
-  describe "Test de ejemplo" $ do
-    it "El pdepreludat se instaló correctamente" $ do
-      2 `shouldBe` 2
+  describe "Test conductoresIndependientes" $ do
+    it "No hay conductores independientes" $ do
+      conductoresIndependientes participantesCarrera2 `shouldBe` []
+    it "Hay conductores independientes" $ do
+      conductoresIndependientes participantesCarrera1 `shouldBe` [UnConductor {nombre = "Miles", peso = 0.5, vehiculo = Moto},UnConductor {nombre = "Sonic", peso = 5, vehiculo = Moto}]
+  
 
